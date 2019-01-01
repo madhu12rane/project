@@ -120,7 +120,26 @@ exports.update=function(req,res){
                     var ID = req.params.id;
                 console.log("id"+ID);
                 console.log(req.body.key);
-                var q=req.body.key;
+    
+console.log(req.body.key);
+                   var dob=req.body.key.dob;
+                     
+                     
+    console.log("Before Registering the user");
+
+    var today = new Date();
+    var birthDate = new Date(dob);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+                    var ID = req.params.id;
+                console.log("id"+ID);
+                console.log(req.body.key);
+              req.body.key.age=age;
+  
+            var q=req.body.key;
                 
                 var query = { _id: ID };
 EMP.findByIdAndUpdate(ID,{$set: q}, {upsert:true},function (err, employee) {
